@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import InputField from './components/InputField';
 import { Todo } from './components/model';
+import TodoLIst from './components/TodoLIst';
 
 
 const App:React.FC = () => {
@@ -10,11 +11,21 @@ const App:React.FC = () => {
   //This is how we are going to create an array of type or interface
   const [todos, setTodos] = useState<Todo[]>([]);
 
+  //Adding Task to body function
+  const handleAdd = (e:React.FormEvent) => {
+    e.preventDefault();
+
+    if(todo) {
+      setTodos([...todos, {id : Date.now(), todo, isDone : false}])
+    }
+  }
+  console.log(todos);
   //console.log(todo);
   return (
     <div className='App'>
       <span className='heading'>Taksify</span>
-      <InputField todo={todo} setTodo={setTodo}/>
+      <InputField todo={todo} setTodo={setTodo} handleAdd={handleAdd}/>
+      <TodoLIst />
     </div>
   );
 }
