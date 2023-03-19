@@ -12,26 +12,16 @@ interface Props {
 }
 
 
-const  TodoList:React.FC<Props> = ({todos, setTodos}) => {
+const  TodoList:React.FC<Props> = ({todos,setTodos}) => {
   return (
-    <div className="container">
-          <div className="todos">
-              <span className="todos__heading">Active Taks</span>
-              {
-               todos.map((todo) =>(
-              <SingleTodo
-                todo={todo}
-                todos ={todos}
-                key={todo.id}
-                setTodos={setTodos}
-              />
-          ))}
-          </div>
-          <div className='todos remove'>
-             <span className='todos__heading'>
-               Completed Tasks
-             </span>
-           {
+      <div className='container'>
+        <Droppable droppableId='TodosList'>
+        {(provided) => (
+          <div className='todos' ref={provided.innerRef} {...provided.droppableProps}>
+          <span className='todos__heading'>
+            Active Tasks
+          </span>
+          {
             todos.map((todo) =>(
               <SingleTodo
                 todo={todo}
@@ -41,7 +31,30 @@ const  TodoList:React.FC<Props> = ({todos, setTodos}) => {
               />
           ))}
         </div>
-    </div>
+        )}
+        </Droppable>
+        <Droppable droppableId='TodosRemove'>
+          {(provided) =>(
+            <div className='todos remove' 
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+            <span className='todos__heading'>
+                Completed Tasks
+            </span>
+              {
+                todos.map((todo) =>(
+                  <SingleTodo
+                    todo={todo}
+                    todos ={todos}
+                    key={todo.id}
+                    setTodos={setTodos}
+                  />
+              ))}
+            </div>
+          )}
+        </Droppable>
+      </div>
   )
 }
 
