@@ -10,6 +10,7 @@ const App:React.FC = () => {
 
   //This is how we are going to create an array of type or interface
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [completedTask, setCompletedTask] = useState<Todo[]>([]);
 
   const handleAdd = (e:React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +28,8 @@ const App:React.FC = () => {
     <div className='App'>
       <span className='heading'>Taksify</span>
       <InputField todo={todo} setTodo={setTodo} handleAdd={handleAdd}/>
-      <TodoList todos={todos} setTodos={setTodos}/>
+      <TodoList todos={todos} setTodos={setTodos} completedTask={completedTask}
+          setCompletedTask={setCompletedTask}/>
     </div>
     </>
   )
