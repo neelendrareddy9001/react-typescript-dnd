@@ -7,6 +7,8 @@ import SingleTodo from './SingleTodo';
 interface Props {
     todos : Todo[],
     setTodos : React.Dispatch<React.SetStateAction<Todo[]>>;
+    completedTask : Todo[];
+    setCompletedTask : React.Dispatch<React.SetStateAction<Todo[]>>;
 }
 
 
