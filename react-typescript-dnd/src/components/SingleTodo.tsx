@@ -23,6 +23,7 @@ const SingleTodo: React.FC<Props> = ({ index, todo, todos, setTodos }) => {
       )
     );
   };
+
   const handleDelete = (id: number) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
@@ -49,7 +50,7 @@ const SingleTodo: React.FC<Props> = ({ index, todo, todos, setTodos }) => {
           className="todos__single"
           onSubmit={(e) => handleEdit(e, todo.id)}
           {...provided.dragHandleProps}
-          {...provided.dragHandleProps}
+          {...provided.draggableProps}
           ref={provided.innerRef}
         >
           {edit ? (

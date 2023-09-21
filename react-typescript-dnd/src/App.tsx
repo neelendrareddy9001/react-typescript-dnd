@@ -21,7 +21,7 @@ const App: React.FC = () => {
     }
   };
   const onDragend = (result: DropResult) => {
-    const { source, destination } = result;
+    const { destination, source } = result;
 
     console.log(result);
 
@@ -30,15 +30,16 @@ const App: React.FC = () => {
     }
 
     if (
-      destination?.droppableId === source.droppableId &&
+      destination.droppableId === source.droppableId &&
       destination.index === source.index
     )
       return;
 
-    let add,
-      active = todos,
-      complete = completedTodos;
+    let add;
+    let active = todos;
+    let complete = completedTodos;
 
+    //source logic
     if (source.droppableId === "TodosList") {
       add = active[source.index];
       active.splice(source.index, 1);
@@ -47,6 +48,7 @@ const App: React.FC = () => {
       complete.splice(source.index, 1);
     }
 
+    //Destination logic
     if (destination.droppableId === "TodosList") {
       active.splice(destination.index, 0, add);
     } else {

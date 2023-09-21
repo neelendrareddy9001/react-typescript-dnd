@@ -4,14 +4,14 @@ import "./styles.css";
 import SingleTodo from "./SingleTodo";
 import { Droppable } from "react-beautiful-dnd";
 
-interface Props {
+interface props {
   todos: Todo[];
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
   completedTodos: Todo[];
   setCompletedTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
 
-const TodoList: React.FC<Props> = ({
+const TodoList: React.FC<props> = ({
   todos,
   setTodos,
   completedTodos,
@@ -31,11 +31,12 @@ const TodoList: React.FC<Props> = ({
               <SingleTodo
                 index={index}
                 todo={todo}
-                todos={completedTodos}
+                todos={todos}
                 key={todo.id}
-                setTodos={setCompletedTodos}
+                setTodos={setTodos}
               />
             ))}
+            {provided.placeholder}
           </div>
         )}
       </Droppable>
