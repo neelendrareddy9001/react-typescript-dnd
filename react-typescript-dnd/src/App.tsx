@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import "./App.css";
-import { Todo } from "./components/model";
-import TodoList from "./components/TodoLIst";
 import InputField from "./components/InputField";
+import TodoList from "./components/TodoLIst";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import { Todo } from "./models/models";
 
 const App: React.FC = () => {
-  const [todo, setTodo] = useState<string>(" ");
-
-  //This is how we are going to create an array of type or interface
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [completedTodos, setCompletedTodos] = useState<Todo[]>([]);
+  const [todo, setTodo] = useState<string>("");
+  const [todos, setTodos] = useState<Array<Todo>>([]);
+  const [CompletedTodos, setCompletedTodos] = useState<Array<Todo>>([]);
 
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,7 +18,8 @@ const App: React.FC = () => {
       setTodo("");
     }
   };
-  const onDragend = (result: DropResult) => {
+
+  const onDragEnd = (result: DropResult) => {
     const { destination, source } = result;
 
     console.log(result);
@@ -32,14 +31,14 @@ const App: React.FC = () => {
     if (
       destination.droppableId === source.droppableId &&
       destination.index === source.index
-    )
+    ) {
       return;
+    }
 
     let add;
     let active = todos;
-    let complete = completedTodos;
-
-    //source logic
+    let complete = CompletedTodos;
+    // Source Logic
     if (source.droppableId === "TodosList") {
       add = active[source.index];
       active.splice(source.index, 1);
@@ -48,7 +47,7 @@ const App: React.FC = () => {
       complete.splice(source.index, 1);
     }
 
-    //Destination logic
+    // Destination Logic
     if (destination.droppableId === "TodosList") {
       active.splice(destination.index, 0, add);
     } else {
@@ -58,17 +57,16 @@ const App: React.FC = () => {
     setCompletedTodos(complete);
     setTodos(active);
   };
-  //console.log(todos);
-  //console.log(todo);
+
   return (
-    <DragDropContext onDragEnd={onDragend}>
+    <DragDropContext onDragEnd={onDragEnd}>
       <div className="App">
-        <span className="heading">Taksify</span>
+        <span className="heading">Taskify</span>
         <InputField todo={todo} setTodo={setTodo} handleAdd={handleAdd} />
         <TodoList
           todos={todos}
           setTodos={setTodos}
-          completedTodos={completedTodos}
+          CompletedTodos={CompletedTodos}
           setCompletedTodos={setCompletedTodos}
         />
       </div>
